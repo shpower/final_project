@@ -16,3 +16,11 @@ def configure(app):
     @app.route('/details/<int:id>')
     def getdetails(id):
         return render_template('details.html', item=df.iloc[id])
+
+    @app.route('/addnew')
+    def add_new():
+        return render_template('addnew.html')
+
+    @app.route('/predict')
+    def predict():
+        return render_template('predict.html')
