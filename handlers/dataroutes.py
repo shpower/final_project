@@ -12,6 +12,10 @@ def init():
     df = pd.read_csv('./data/diamonds.csv')
 
 
+def show_alert():
+    alert = "Prediction page - Please enter valid input in the page fields"
+    return render_template("primary_alert.html", data=alert)
+
 def configure(app):
 
     @app.route('/')
@@ -48,3 +52,27 @@ def configure(app):
                                  clarity, depth, table, price, x, y, z]
         df.to_csv('./data/diamonds.csv',index=False)
         return render_template('ok.html')
+
+    @app.route('/predict',methods=['POST'])
+    def predict_diamond():
+        try:
+            carat = float(request.form['carat'])
+            depth = float(request.form['depth'])
+            table = float(request.form['table'])
+            x = float(request.form['x'])
+            y = float(request.form['y'])
+            z = float(request.form['z'])
+        except ValueError:
+            return show_alert()
+    
+        cut = request.form['cut']
+        color = request.form['color']
+        clarity = request.form['clarity']
+        
+        if "Select" in color or "Select" in clarity or "Select" in cut:
+            return show_alert()
+
+        v = dfmodel.predict([carat, cut, color, clarity, depth, table, 0, x, y, z])
+        return render_template('res.html',val=v)
+
+    
