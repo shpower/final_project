@@ -85,10 +85,6 @@ def configure(app):
     def predict():
         return render_template('predict.html')
 
-    @app.route('/alerts')
-    def alert():
-        return render_template('alert.html')
-
     @app.route('/additem', methods=['POST'])
     def additem():
         global df
