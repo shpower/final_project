@@ -1,0 +1,6 @@
+*.ipynb
+env
+.vscode
+.ipynb_checkpoints
+.gitignore
+__pycache__
