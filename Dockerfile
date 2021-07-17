@@ -1,15 +1,13 @@
-FROM python:3.8.8
+FROM python:3.8-slim
 
 # define working directory for app
 WORKDIR /app/
 
-# install python environment
-COPY requirements.txt /app/
-RUN pip install -r ./requirements.txt
-
 # add final_project folder contain to the app
-ADD ../final_project /app/
+COPY ../final_project /app/
 
+# install python environment
+RUN pip install -r ./requirements.txt
 
 # expose port 5000 so we can access from host
 EXPOSE 5000
