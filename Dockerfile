@@ -10,7 +10,7 @@ COPY . /app/
 RUN pip install -r ./requirements.txt
 
 # expose port 5000 so we can access from host
-EXPOSE 5001
+EXPOSE 8080
 
 ENTRYPOINT python /app/app.py
 
