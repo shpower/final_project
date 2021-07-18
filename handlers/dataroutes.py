@@ -87,17 +87,25 @@ def configure(app):
 
     @app.route('/additem', methods=['POST'])
     def additem():
-        global df
-        carat = float(request.form['carat'])
+        
+        try:
+            carat = float(request.form['carat'])
+            depth = float(request.form['depth'])
+            table = float(request.form['table'])
+            x = float(request.form['x'])
+            y = float(request.form['y'])
+            z = float(request.form['z'])
+            price = float(request.form['price'])
+        except ValueError:
+            return show_alert()
+
         cut = request.form['cut']
         color = request.form['color']
         clarity = request.form['clarity']
-        depth = float(request.form['depth'])
-        table = float(request.form['table'])
-        x = float(request.form['x'])
-        y = float(request.form['y'])
-        z = float(request.form['z'])
-        price = float(request.form['price'])
+
+        if "Select" in color or "Select" in clarity or "Select" in cut:
+            return show_alert()
+
         df.loc[df.index.size] = [carat, cut, color,
                                  clarity, depth, table, price, x, y, z]
         df.to_csv('./data/diamonds.csv',index=False)
